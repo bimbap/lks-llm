@@ -96,6 +96,13 @@
     #   tags: [nvidia]
 
     # Docker and llm setup tasks
+    - name: Download Docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+      tags: [docker]
+
     - name: Create Docker CLI plugins directory
       file:
         path: /root/.docker/cli-plugins
