@@ -96,9 +96,9 @@
     #   tags: [nvidia]
 
     # Docker and llm setup tasks
-    - name: Download Docker-ce
+    - name: Download Docker
       apt:
-        name: docker-ce
+        name: docker
         state: latest
         update_cache: true
       tags: [docker]
