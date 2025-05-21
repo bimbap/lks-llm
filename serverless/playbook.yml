@@ -66,43 +66,36 @@
       tags: [nfs]
 
     # NVIDIA Container Toolkit Installation
-    # - name: Remove existing NVIDIA Container Toolkit GPG key
-    #   file:
-    #     path: /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-    #     state: absent
-    #   tags: [nvidia, nvidia_cleanup]
+    - name: Remove existing NVIDIA Container Toolkit GPG key
+      file:
+        path: /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        state: absent
+      tags: [nvidia, nvidia_cleanup]
 
-    # - name: Remove existing NVIDIA Container Toolkit repository
-    #   file:
-    #     path: /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    #     state: absent
-    #   tags: [nvidia, nvidia_cleanup]
+    - name: Remove existing NVIDIA Container Toolkit repository
+      file:
+        path: /etc/apt/sources.list.d/nvidia-container-toolkit.list
+        state: absent
+      tags: [nvidia, nvidia_cleanup]
 
-    # - name: Add NVIDIA Container Toolkit GPG key
-    #   shell: curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \ | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-    #   tags: [nvidia]
+    - name: Add NVIDIA Container Toolkit GPG key
+      shell: curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \ | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+      tags: [nvidia]
 
-    # - name: Add NVIDIA Container Toolkit repository
-    #   shell: curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \ | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \ | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    #   tags: [nvidia]
+    - name: Add NVIDIA Container Toolkit repository
+      shell: curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \ | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \ | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+      tags: [nvidia]
 
-    # - name: Update apt cache
-    #   shell: sudo apt-get update
-    #   tags: [nvidia]
+    - name: Update apt cache
+      shell: sudo apt-get update
+      tags: [nvidia]
 
-    # - name: Install NVIDIA Container Toolkit
-    #   become: true
-    #   shell: sudo apt-get install -y nvidia-container-toolkit
-    #   tags: [nvidia]
+    - name: Install NVIDIA Container Toolkit
+      become: true
+      shell: sudo apt-get install -y nvidia-container-toolkit
+      tags: [nvidia]
 
     # Docker and llm setup tasks
-    - name: Download Docker
-      apt:
-        name: docker
-        state: latest
-        update_cache: true
-      tags: [docker]
-
     - name: Create Docker CLI plugins directory
       file:
         path: /root/.docker/cli-plugins
